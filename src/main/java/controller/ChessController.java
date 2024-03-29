@@ -55,7 +55,7 @@ public class ChessController {
         finishGame(gameRequest, chessGame);
     }
 
-    private ChessGame createGame(GameRequest gameRequest) {
+    private ChessGame createGame(GameRequest gameRequest)  {
         if (gameRequest.isStart()) {
             return new ChessGame();
         }
