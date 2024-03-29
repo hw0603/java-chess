@@ -14,8 +14,6 @@ public class PieceDao {
     public void addAll(Connection connection, List<PieceDto> pieceDtos, int gameId) {
         final String query = String.format("INSERT INTO %s VALUES(?, ?, ?, ?, ?)", TABLE_NAME);
         try (PreparedStatement pstmt = connection.prepareStatement(query)) {
-            connection.setAutoCommit(false);
-
             for (PieceDto pieceDto : pieceDtos) {
                 pstmt.setInt(1, pieceDto.fileIndex());
                 pstmt.setInt(2, pieceDto.rankIndex());
@@ -25,7 +23,6 @@ public class PieceDao {
                 pstmt.addBatch();
             }
             pstmt.executeBatch();
-            connection.commit();
         } catch (SQLException e) {
             throw new DBException(e);
         }

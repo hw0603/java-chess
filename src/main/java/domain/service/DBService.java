@@ -58,7 +58,7 @@ public class DBService {
             pieceDao.addAll(connection, collectPositionOfPieces(chessGame), gameId);
             connection.commit();
             return gameId;
-        } catch (SQLException e) {
+        } catch (SQLException | DBException e) {
             try {
                 connection.rollback();
             } catch (SQLException rollbackException) {

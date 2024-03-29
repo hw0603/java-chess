@@ -45,7 +45,6 @@ public class GameDao {
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, teamColor.name());
             preparedStatement.setInt(2, gameId);
-
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new DBException(e);
