@@ -14,9 +14,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class PieceDaoTest {
-    private final GameDao gameDao = new GameDao();
-    private final PieceDao pieceDao = new PieceDao();
+class PieceDaoImplTest {
+    private final GameDao gameDao = new GameDaoImpl();
+    private final PieceDao pieceDao = new PieceDaoImpl();
     private Connection connection;
 
     @BeforeEach

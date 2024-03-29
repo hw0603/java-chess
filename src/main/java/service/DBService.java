@@ -3,7 +3,9 @@ package service;
 import dao.DBConnector;
 import dao.DBException;
 import dao.GameDao;
+import dao.GameDaoImpl;
 import dao.PieceDao;
+import dao.PieceDaoImpl;
 import domain.game.ChessGame;
 import domain.game.Piece;
 import domain.game.PieceFactory;
@@ -20,9 +22,13 @@ public class DBService {
     private final GameDao gameDao;
     private final PieceDao pieceDao;
 
+    protected DBService(GameDao gameDao, PieceDao pieceDao) {
+        this.gameDao = gameDao;
+        this.pieceDao = pieceDao;
+    }
+
     public DBService() {
-        this.gameDao = new GameDao();
-        this.pieceDao = new PieceDao();
+        this(new GameDaoImpl(), new PieceDaoImpl());
     }
 
     private Connection getConnectionOfAutoCommit(boolean autoCommit) {

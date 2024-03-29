@@ -10,8 +10,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class GameDaoTest {
-    final GameDao gameDao = new GameDao();
+class GameDaoImplTest {
+    final GameDao gameDao = new GameDaoImpl();
     Connection connection;
 
     @BeforeEach
