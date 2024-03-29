@@ -1,5 +1,5 @@
 import controller.ChessController;
-import domain.service.DBService;
+import service.DBService;
 import view.InputView;
 import view.OutputView;
 

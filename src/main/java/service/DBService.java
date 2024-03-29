@@ -1,4 +1,4 @@
-package domain.service;
+package service;
 
 import dao.DBConnector;
 import dao.DBException;

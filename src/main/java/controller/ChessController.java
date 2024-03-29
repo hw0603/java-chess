@@ -5,7 +5,7 @@ import domain.game.GameRequest;
 import domain.game.Piece;
 import domain.game.TeamColor;
 import domain.position.Position;
-import domain.service.DBService;
+import service.DBService;
 import dto.BoardDto;
 import java.util.Map;
 import java.util.function.Supplier;
