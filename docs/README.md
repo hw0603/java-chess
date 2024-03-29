@@ -1,9 +1,38 @@
 ## 실행 방법
-1. 프로그램 실행 후 start 를 입력하여 새로운 게임을 시작하거나 load 를 입력하여 이전에 저장된 게임을 불러온다.
-2. 게임이 시작되면 move {source} {target} 을 입력하여 체스 말을 움직인다.
-3. 게임 진행 중 save 명령으로 현재 상태를 저장할 수 있다.
-4. 한 팀의 킹이 잡히면 게임은 종료되고, 이때 status 명령으로 각 팀의 점수와 승자를 확인할 수 있다.
-5. 어디서든 end 명령으로 게임을 종료할 수 있다.
+1. MySQL 컨테이너 실행
+    ```zsh
+    cd ./docker && docker-compose -p chess up -d
+    ```
+
+2. 데이터베이스, 테이블 생성
+    ```mysql
+    CREATE DATABASE chess DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+    use chess;
+    
+    CREATE TABLE `game` (
+        `gameId` int NOT NULL AUTO_INCREMENT,
+        `turn` varchar(10) DEFAULT NULL,
+        PRIMARY KEY (`gameId`)
+    );
+    
+    CREATE TABLE `piece` (
+         `file` int NOT NULL,
+         `rank` int NOT NULL,
+         `pieceColor` varchar(50) NOT NULL,
+         `pieceType` varchar(50) NOT NULL,
+         `gameId` int NOT NULL,
+         PRIMARY KEY (`file`,`rank`,`gameId`),
+         KEY `gameId` (`gameId`),
+         CONSTRAINT `gameId` FOREIGN KEY (`gameId`) REFERENCES `game` (`gameId`)
+    );
+    ```
+   
+3. `Application` 실행
+4. 프로그램 실행 후 `start` 를 입력하여 새로운 게임을 시작하거나 `load` 를 입력하여 이전에 저장된 게임을 불러온다.
+5. 게임이 시작되면 `move {source} {target}` 을 입력하여 체스 말을 움직인다.
+6. 게임 진행 중 `save` 명령으로 현재 상태를 저장할 수 있다.
+7. 한 팀의 킹이 잡히면 게임은 종료되고, 이때 `status` 명령으로 각 팀의 점수와 승자를 확인할 수 있다.
+8. 어디서든 `end` 명령으로 게임을 종료할 수 있다.
 
 ## 기능 흐름
 
@@ -62,14 +91,14 @@
 - [x] 한 팀의 킹이 잡히면 게임을 종료한다.
 - [x] 게임이 종료된 경우 승자를 판단할 수 있다.
 - [x] 상태와 무관하게 각 팀별 현재 점수를 계산할 수 있다.
-- [ ] 현재 게임 상태를 DB에 저장할 수 있다.
-- [ ] DB에 저장된 게임 상태를 다시 불러올 수 있다.
+- [x] 현재 게임 상태를 DB에 저장할 수 있다.
+- [x] DB에 저장된 게임 상태를 다시 불러올 수 있다.
 
 ### InputView
 - [x] `start` 명령과 `end`, `move` 명령을 입력받는다.
 - [x] 게임 종료 후 `status` 명령을 입력받을 수 있다.
-- [ ] 현재 게임 상태를 저장하기 위한 `save` 명령을 입력받을 수 있다.
-- [ ] 저장된 게임 상태를 불러오기 위한 `load` 명령을 입력받을 수 있다.
+- [x] 현재 게임 상태를 저장하기 위한 `save` 명령을 입력받을 수 있다.
+- [x] 저장된 게임 상태를 불러오기 위한 `load` 명령을 입력받을 수 있다.
 
 ### OutputView
 - [x] 현재 체스판의 상태를 출력한다.
